@@ -17,3 +17,8 @@ To start the development server, run the following command:
 npm run dev
 ```
 This will start the server and open your default browser to your localhost. The site will reload automatically as you make changes to your code.
+
+
+a posititon is a prop of the mesh 
+that position is a vector3 
+vector3 has 3 props xyz 
