@@ -6,26 +6,18 @@ const scene = new THREE.Scene()
 
 // add objects to the scene
 const cubeGeometry = new THREE.BoxGeometry(1, 1, 1)
-const cubeMaterial = new THREE.MeshBasicMaterial({ color: "red" })
-
+const cubeMaterial = new THREE.MeshBasicMaterial({
+	color: "red",
+	wireframe: true
+})
 const cubeMesh = new THREE.Mesh(cubeGeometry, cubeMaterial)
-cubeMesh.position.y = 1
-cubeMesh.scale.setScalar(0.5)
-const cubeMesh2 = new THREE.Mesh(cubeGeometry, cubeMaterial)
-cubeMesh2.position.x = 2
-const cubeMesh3 = new THREE.Mesh(cubeGeometry, cubeMaterial)
-cubeMesh3.position.x = -2
+// cubeMesh.position.y = 1
 
-const group = new THREE.Group()
-group.add(cubeMesh)
-group.add(cubeMesh2)
-group.add(cubeMesh3)
+scene.add(cubeMesh)
 
-group.position.y = 2
-group.scale.setScalar(2)
-
-scene.add(group)
-// scene.add(cubeMesh);
+cubeMesh.rotation.reorder("YXZ")
+cubeMesh.rotation.y = THREE.MathUtils.degToRad(90)
+cubeMesh.rotation.x = THREE.MathUtils.degToRad(45)
 
 const axesHelper = new THREE.AxesHelper(3)
 scene.add(axesHelper)
