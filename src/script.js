@@ -15,9 +15,9 @@ const cubeMesh = new THREE.Mesh(cubeGeometry, cubeMaterial)
 
 scene.add(cubeMesh)
 
-cubeMesh.rotation.reorder("YXZ")
-cubeMesh.rotation.y = THREE.MathUtils.degToRad(90)
-cubeMesh.rotation.x = THREE.MathUtils.degToRad(45)
+// cubeMesh.rotation.reorder("YXZ")
+// cubeMesh.rotation.y = THREE.MathUtils.degToRad(90)
+// cubeMesh.rotation.x = THREE.MathUtils.degToRad(45)
 
 const axesHelper = new THREE.AxesHelper(3)
 scene.add(axesHelper)
@@ -52,8 +52,18 @@ window.addEventListener("resize", () => {
 	renderer.setSize(window.innerWidth, window.innerHeight)
 })
 
+// inititalize the clock
+const clock = new THREE.Clock()
+let previousTime = 0
+
 // render the scene
 const renderloop = () => {
+	const currentTime = clock.getElapsedTime()
+	const delta = currentTime - previousTime 
+  previousTime = currentTime
+
+  cubeMesh.rotation.y += THREE.MathUtils.degToRad(1) * delta * 15
+
 	controls.update()
 	renderer.render(scene, camera)
 	window.requestAnimationFrame(renderloop)
