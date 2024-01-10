@@ -5,19 +5,25 @@ import { OrbitControls } from "three/addons/controls/OrbitControls.js"
 const scene = new THREE.Scene()
 
 // add objects to the scene
-const cubeGeometry = new THREE.BoxGeometry(1, 1, 1)
+// const cubeGeometry = new THREE.BoxGeometry(1, 1, 1)
+
+// create custom geometry / buffer geometry
+const vertices = new Float32Array([0, 0, 0, 0, 2, 0, 2, 0, 0])
+
+const bufferAttribute = new THREE.BufferAttribute(vertices, 3)
+
+const geometry = new THREE.BufferGeometry()
+geometry.setAttribute("position", bufferAttribute)
+
 const cubeMaterial = new THREE.MeshBasicMaterial({
 	color: "red",
 	wireframe: true
 })
-const cubeMesh = new THREE.Mesh(cubeGeometry, cubeMaterial)
-// cubeMesh.position.y = 1
+
+const cubeMesh = new THREE.Mesh(geometry, cubeMaterial)
+// const cubeMesh = new THREE.Mesh(cubeGeometry, cubeMaterial)
 
 scene.add(cubeMesh)
-
-// cubeMesh.rotation.reorder("YXZ")
-// cubeMesh.rotation.y = THREE.MathUtils.degToRad(90)
-// cubeMesh.rotation.x = THREE.MathUtils.degToRad(45)
 
 const axesHelper = new THREE.AxesHelper(3)
 scene.add(axesHelper)
@@ -44,7 +50,7 @@ renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2))
 // instantiate the controls
 const controls = new OrbitControls(camera, canvas)
 controls.enableDamping = true
-// controls.autoRotate = true;
+// controls.autoRotate = true
 
 window.addEventListener("resize", () => {
 	camera.aspect = window.innerWidth / window.innerHeight
@@ -59,10 +65,10 @@ let previousTime = 0
 // render the scene
 const renderloop = () => {
 	const currentTime = clock.getElapsedTime()
-	const delta = currentTime - previousTime 
-  previousTime = currentTime
+	const delta = currentTime - previousTime
+	previousTime = currentTime
 
-  cubeMesh.rotation.y += THREE.MathUtils.degToRad(1) * delta * 15
+	cubeMesh.rotation.y += THREE.MathUtils.degToRad(1) * delta * 15
 
 	controls.update()
 	renderer.render(scene, camera)
